@@ -12,9 +12,9 @@ import { Search, Operation } from '@element-plus/icons-vue'
       </div>
     </div>
     <div class=" flex-1 flex items-center gap-2 px-10">
-      <el-input v-model="input" style="width: 300px" placeholder="Поиск по рецептам">
+      <el-input v-model="input" style="width: 300px; height: 45px" placeholder="Поиск по рецептам">
         <template #suffix>
-          <el-button :icon="Operation" size="large" style="border: none; margin-right: -10px;" ></el-button>
+          <el-button :icon="Operation" size="default" style="border: none; margin-right: -10px; height: 43px" ></el-button>
         </template>
       </el-input>
       <el-button plain :icon="Search" size="large" circle />
