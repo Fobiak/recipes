@@ -11,7 +11,7 @@ export const fetchRecipes = async () => {
             method: "get",
             params: {
                 apiKey: apiKey,
-                number: 11,
+                number: 15,
                 addRecipeInformation: true,
             },
         });

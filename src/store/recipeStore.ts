@@ -8,7 +8,7 @@ export const useRecipeStore = defineStore("recipeStore", () => {
     async function loadRecipes() {
         try {
             const response = await fetchRecipes();
-            recipes.value = response.data.results; // Spoonacular возвращает рецепты в results
+            recipes.value = response.data.results;
         } catch (error) {
             console.error("Ошибка загрузки рецептов:", error);
         }
