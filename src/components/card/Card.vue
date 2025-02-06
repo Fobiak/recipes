@@ -1,24 +1,9 @@
-<script setup lang="ts">
-
-import {Timer, PieChart, More}from'@element-plus/icons-vue'
-
-defineProps<{
-  title: string;
-  image: string;
-  readyInMinutes: string;
-  calories: number;
-}>();
-
-</script>
-
-
 <template>
-  <el-card shadow="hover" class="relative w-full max-w-auto" :body-style="{ padding: '0px' }">
+  <el-card shadow="hover" class="relative w-full max-w-auto flex flex-col" :body-style="{ padding: '0px' }">
     <img :src="image" :alt="title" class="w-full h-48 object-cover" />
 
-    <div class="flex flex-col">
-
-      <div class="flex justify-between items-center mt-0.5 text-gray-600 text-sm px-1 py-1">
+    <div class="flex flex-col p-2">
+      <div class="flex justify-between items-center text-gray-600 text-sm">
         <span class="flex items-center gap-1">
           <el-icon><PieChart /></el-icon>
           {{ calories }} ккал
@@ -29,13 +14,34 @@ defineProps<{
         </span>
       </div>
 
-      <div>
-        <h3 class="font-semibold text-lg mt-1 px-1 py-1">{{ title }}</h3>
-      </div>
+      <h3 class="font-semibold text-lg mt-1">{{ title }}</h3>
 
-      <div>
-        <el-button class="absolute bottom-0 right-0" @click="toggleCard" :icon="More" circle></el-button>
+      <div class="flex justify-between items-center mt-2">
+        <span class="flex items-center gap-1">
+          <el-icon><Food /></el-icon>
+          {{ servings }} порций
+        </span>
+        <span class="flex items-center gap-1">
+          <el-icon><StarFilled /></el-icon>
+          {{ aggregateLikes }}
+        </span>
       </div>
     </div>
   </el-card>
 </template>
+
+
+
+<script setup lang="ts">
+import { Timer, PieChart, Food, StarFilled} from '@element-plus/icons-vue';
+
+defineProps({
+  image: String,
+  title: String,
+  calories: Number,
+  readyInMinutes: String,
+  servings: Number,
+  aggregateLikes: Number,
+});
+</script>
+

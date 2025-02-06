@@ -1,4 +1,4 @@
-import makeRequest from "@/services/httpClient";
+import makeRequest from "@/services/api/httpClient";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://api.spoonacular.com";
@@ -20,4 +20,23 @@ export const fetchRecipes = async () => {
         return null;
     }
 };
+
+//детальная инфо о рецептах
+export const fetchRecipesDetail = async () => {
+    try {
+        return await makeRequest({
+            url: `${BASE_URL}/recipes/{id}/information`,
+            method: "get",
+            params: {
+                apiKey: apiKey,
+
+            },
+        });
+    } catch (error) {
+        console.error("Ошибка при запросе рецептов:", error);
+        return null;
+    }
+};
+
+
 
