@@ -13,8 +13,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="px-20 py-8">
-    <div class="grid gap-14" style="grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));">
+  <main class="px-24 py-8">
+    <div class="grid gap-10" style="grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));">
       <Card v-for="recipe in recipeStore.recipes" :key="recipe.id"
             :title="recipe.title"
             :image="recipe.image"
