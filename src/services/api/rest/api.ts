@@ -3,7 +3,6 @@ import makeRequest from "@/services/api/httpClient";
 const apiKey = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://api.spoonacular.com";
 
-
 export const fetchRecipes = async () => {
     try {
         return await makeRequest({
