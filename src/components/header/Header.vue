@@ -3,7 +3,7 @@ import { Search, Operation } from '@element-plus/icons-vue'
 </script>
 
 <template>
-  <header class="flex justify-between border-b border-gray-300 px-20 py-3">
+  <header class="flex justify-between border-b border-gray-300 px-20 py-3 bg-white">
     <div class="flex items-center gap-4">
       <img src="@/assets/recipe.svg" alt="recipes" class="w-12">
       <div>
