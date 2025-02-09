@@ -4,7 +4,7 @@ export interface Request {
     url: string
     method?: string
     headers?: never,
-    params?: never,
+    params?: any,
     data?: never
 }
 

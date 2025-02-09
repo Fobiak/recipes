@@ -9,3 +9,7 @@ html {
 body {
     background-color: whitesmoke;
 }
+
+.el-card__footer {
+    padding: 0 !important;
+}

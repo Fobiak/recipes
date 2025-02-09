@@ -14,15 +14,19 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="px-10 py-8">
-    <div class="grid grid-cols-5 gap-3">
+  <main class="px-20 pr-80 py-8">
+    <div class="grid gap-4"
+         :class="'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'"
+         style="grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));">
       <Card v-for="recipe in recipeStore.recipes" :key="recipe.id"
             :title="recipe.title"
             :image="recipe.image"
             :calories="getCalories(recipe.summary)"
             :ready-in-minutes="convertMinute(recipe.readyInMinutes)"
             :servings="recipe.servings"
-            :aggregateLikes="recipe.aggregateLikes"/>
+            :aggregateLikes="recipe.aggregateLikes"
+            :dish-types="recipe.dishTypes"
+      />
     </div>
   </main>
 </template>

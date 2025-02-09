@@ -22,21 +22,5 @@ export const fetchRecipes = async () => {
 };
 
 //детальная инфо о рецептах
-export const fetchRecipesDetail = async () => {
-    try {
-        return await makeRequest({
-            url: `${BASE_URL}/recipes/{id}/information`,
-            method: "get",
-            params: {
-                apiKey: apiKey,
-
-            },
-        });
-    } catch (error) {
-        console.error("Ошибка при запросе рецептов:", error);
-        return null;
-    }
-};
-
 
 
