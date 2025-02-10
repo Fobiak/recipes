@@ -3,13 +3,14 @@ import makeRequest from "@/services/api/httpClient";
 const apiKey = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://api.spoonacular.com";
 
-export const fetchRecipes = async () => {
+export const fetchRecipes = async ( searchQueryHead ) => {
     try {
         return await makeRequest({
             url: `${BASE_URL}/recipes/complexSearch`,
             method: "get",
             params: {
                 apiKey: apiKey,
+                query: searchQueryHead,
                 number: 15,
                 addRecipeInformation: true,
             },

@@ -1,11 +1,23 @@
 <script setup lang="ts" >
 import router from "@/router";
 import { Search } from '@element-plus/icons-vue'
-import {computed} from "vue";
+import {computed, onMounted, ref} from "vue";
 import { useRoute } from "vue-router"
+import { useRecipeStore } from "@/store/recipeStore";
+import { useDebounceFn } from '@vueuse/core';
+
+const recipeStore = useRecipeStore();
+
+onMounted(() => {
+  recipeStore.loadRecipes();
+});
+
+const searchQueryHead = ref('');
+const headSearch = useDebounceFn(() => {
+  recipeStore.loadRecipes(searchQueryHead.value);
+}, 1000);
 
 const route = useRoute();
-
 const showSearch = computed(() => route.meta.showSearch);
 
 function goSearch() {
@@ -15,6 +27,7 @@ function goSearch() {
 function goHome() {
   router.push({ name: "homepage" })
 }
+
 </script>
 
 <template>
@@ -27,7 +40,7 @@ function goHome() {
       </div>
     </div>
     <div v-if="showSearch" class=" flex-1 flex items-center gap-2 px-10">
-      <el-input v-model="input" style="width: 300px; height: 45px" placeholder="Поиск по рецептам"></el-input>
+      <el-input v-model="searchQueryHead"  @input="headSearch" style="width: 300px; height: 45px" placeholder="Поиск по рецептам"></el-input>
       <el-button plain :icon="Search" size="large" circle />
     </div>
     <div class="flex items-center">
