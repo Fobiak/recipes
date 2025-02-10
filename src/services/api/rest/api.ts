@@ -21,7 +21,7 @@ export const fetchRecipes = async () => {
 };
 
 //для подробного поиска
-export const fetchRecipesSearch = async (cuisineType, dietType, mealType) => {
+export const fetchRecipesSearch = async (cuisineType, dietType, mealType, searchQuery) => {
     try {
         console.log(makeRequest)
         return await makeRequest({
@@ -29,6 +29,7 @@ export const fetchRecipesSearch = async (cuisineType, dietType, mealType) => {
             method: "get",
             params: {
                 apiKey: apiKey,
+                query: searchQuery,
                 number: 15,
                 addRecipeInformation: true,
                 cuisine: cuisineType,

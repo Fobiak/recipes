@@ -44,8 +44,10 @@ const options3 = ref(meals.value.map(meal => ({
   label: meal
 })))
 
+const searchQuery = ref('');
+
 const fetchFilteredRecipes = () => {
-  complexSearchStore.loadRecipes(cuisineType.value, dietType.value, mealType.value);
+  complexSearchStore.loadRecipes(cuisineType.value, dietType.value, mealType.value, searchQuery.value);
 };
 </script>
 
@@ -78,6 +80,16 @@ const fetchFilteredRecipes = () => {
           multiple
           clearable
       />
+
+      <div class=" flex-1 flex items-center gap-2 px-10">
+        <el-input
+            v-model="searchQuery"
+            style="width: 300px; height: 45px"
+            @keyup.enter="fetchFilteredRecipes"
+            placeholder="Поиск по названию">
+        </el-input>
+      </div>
+
     </div>
     <div class="flex items-center">
       <el-button  plain @click="fetchFilteredRecipes">Подобрать рецепт</el-button>
