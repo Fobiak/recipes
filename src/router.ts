@@ -6,12 +6,14 @@ const routes = [
     {
         path: "",
         name: "homepage",
-        component: HomePage
+        component: HomePage,
+        meta: { showSearch: true },
     },
     {
         path: "/search",
         name: "searchPage",
-        component: SearchPage
+        component: SearchPage,
+        meta: { showSearch: false },
     }
 ];
 
