@@ -23,6 +23,7 @@ const options = ref(cuisines.value.map(cuisine => ({
 })))
 </script>
 
+
 <template>
 
   <div class="flex justify-between border-b border-gray-300 px-24 py-3 bg-white">
