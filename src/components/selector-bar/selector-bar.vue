@@ -22,8 +22,19 @@ const options = ref(cuisines.value.map(cuisine => ({
   label: cuisine
 })))
 
+const diets = ref([
+  "Gluten Free", "Ketogenic", "Vegetarian", "Lacto-Vegetarian", "Ovo-Vegetarian",
+  "Vegan", "Pescetarian", "Paleo", "Primal",
+  "Low FODMAP", "Whole30"
+]);
+const dietType = ref([])
+const options2 = ref(diets.value.map(diet => ({
+  value: diet,
+  label: diet
+})))
+
 const fetchFilteredRecipes = () => {
-  complexSearchStore.loadRecipes(cuisineType.value);
+  complexSearchStore.loadRecipes(cuisineType.value, dietType.value);
 };
 </script>
 
@@ -36,6 +47,14 @@ const fetchFilteredRecipes = () => {
           v-model="cuisineType"
           :options="options"
           placeholder="Кухни стран"
+          style="width: 240px; margin-right: 16px; vertical-align: middle"
+          multiple
+          clearable
+      />
+      <el-select-v2
+          v-model="dietType"
+          :options="options2"
+          placeholder="Диета"
           style="width: 240px; margin-right: 16px; vertical-align: middle"
           multiple
           clearable

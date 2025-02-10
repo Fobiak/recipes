@@ -1,13 +1,13 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import {fetchRecipesSearch} from "@/services/api/rest/api"
+import { fetchRecipesSearch } from "@/services/api/rest/api"
 
 export const useComplexSearchStore = defineStore("complexSearchStore", () => {
     const recipes = ref([]);
 
-    async function loadRecipes(cuisineType = []) {
+    async function loadRecipes(cuisineType = [], dietType = []) {
         try {
-            const response = await fetchRecipesSearch(cuisineType.join(","));
+            const response = await fetchRecipesSearch(cuisineType.join(","), dietType.join(","));
             recipes.value = response.data.results;
             console.log(response.data.results);
         } catch (error) {

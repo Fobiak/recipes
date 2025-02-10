@@ -21,7 +21,7 @@ export const fetchRecipes = async () => {
 };
 
 //для подробного поиска
-export const fetchRecipesSearch = async (cuisineType) => {
+export const fetchRecipesSearch = async (cuisineType, dietType) => {
     try {
         return await makeRequest({
             url: `${BASE_URL}/recipes/complexSearch`,
@@ -31,6 +31,7 @@ export const fetchRecipesSearch = async (cuisineType) => {
                 number: 15,
                 addRecipeInformation: true,
                 cuisine: cuisineType,
+                diet: dietType,
             },
         });
     } catch (error) {
