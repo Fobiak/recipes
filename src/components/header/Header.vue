@@ -1,6 +1,5 @@
 <script setup lang="ts" >
 import router from "@/router";
-import { Search } from '@element-plus/icons-vue'
 import {computed, onMounted, ref} from "vue";
 import { useRoute } from "vue-router"
 import { useRecipeStore } from "@/store/recipeStore";
@@ -40,8 +39,12 @@ function goHome() {
       </div>
     </div>
     <div v-if="showSearch" class=" flex-1 flex items-center gap-2 px-10">
-      <el-input v-model="searchQueryHead"  @input="headSearch" style="width: 300px; height: 45px" placeholder="Поиск по рецептам"></el-input>
-      <el-button plain :icon="Search" size="large" circle />
+      <el-input v-model="searchQueryHead"
+                @input="headSearch"
+                style="width: 300px; height: 45px"
+                placeholder="Поиск по рецептам"
+                clearable>
+      </el-input>
     </div>
     <div class="flex items-center">
       <el-button @click="goHome" plain>Главная</el-button>

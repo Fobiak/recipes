@@ -86,7 +86,9 @@ const fetchFilteredRecipes = () => {
             v-model="searchQuery"
             style="width: 300px; height: 45px"
             @keyup.enter="fetchFilteredRecipes"
-            placeholder="Поиск по названию">
+            placeholder="Поиск по названию"
+            clearable
+        >
         </el-input>
       </div>
 
