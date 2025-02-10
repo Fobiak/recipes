@@ -23,7 +23,8 @@ export const fetchRecipes = async ( searchQueryHead ) => {
 
 //для подробного поиска
 export const fetchRecipesSearch = async (cuisineType, dietType, mealType,
-                                         searchQuery, incIngrQuery, excIngrQuery, selectSortChoice) => {
+                                         searchQuery, incIngrQuery, excIngrQuery,
+                                         selectSortChoice, sortDirectionK) => {
     try {
         console.log(makeRequest)
         return await makeRequest({
@@ -40,6 +41,7 @@ export const fetchRecipesSearch = async (cuisineType, dietType, mealType,
                 includeIngredients: incIngrQuery,
                 excludeIngredients: excIngrQuery,
                 sort: selectSortChoice,
+                sortDirection: sortDirectionK,
             },
         });
     } catch (error) {

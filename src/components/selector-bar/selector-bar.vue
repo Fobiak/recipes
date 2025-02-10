@@ -1,6 +1,11 @@
 <script setup>
-import {onMounted, ref} from 'vue'
+import {computed, onMounted, ref} from 'vue'
 import {useComplexSearchStore} from "@/store/complexSearchStore.ts";
+import { ArrowUp, ArrowDown } from '@element-plus/icons-vue'
+
+const value2 = ref(true)
+const sortDirectionK = computed(() => (value2.value ? 'asc' : 'desc'));
+
 const complexSearchStore = useComplexSearchStore();
 
 onMounted(() => {
@@ -67,7 +72,8 @@ const setSortChoice = (value) => {
 const fetchFilteredRecipes = () => {
   complexSearchStore.loadRecipes(cuisineType.value,
       dietType.value, mealType.value,
-      searchQuery.value, incIngrQuery.value, excIngrQuery.value, selectSortChoice.value);
+      searchQuery.value, incIngrQuery.value, excIngrQuery.value,
+      selectSortChoice.value, sortDirectionK.value);
 };
 </script>
 
@@ -131,7 +137,7 @@ const fetchFilteredRecipes = () => {
       </div>
     </div>
   </div>
-  <div class=" px-24 py-2">
+  <div class="flex items-center px-24 py-2">
     <el-button
         v-for="button in sortChoice"
         :key="button.value"
@@ -141,5 +147,13 @@ const fetchFilteredRecipes = () => {
         >
       {{ button.label }}
     </el-button>
+    <el-switch
+        v-model="value2"
+        style="margin-left: 24px"
+        inline-prompt
+        :active-icon="ArrowUp"
+        :inactive-icon="ArrowDown"
+        @change="fetchFilteredRecipes"
+    />
   </div>
 </template>
