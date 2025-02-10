@@ -21,6 +21,10 @@ const options = ref(cuisines.value.map(cuisine => ({
   value: cuisine,
   label: cuisine
 })))
+
+const fetchFilteredRecipes = () => {
+  complexSearchStore.loadRecipes(cuisineType.value);
+};
 </script>
 
 
@@ -38,7 +42,7 @@ const options = ref(cuisines.value.map(cuisine => ({
       />
     </div>
     <div class="flex items-center">
-      <el-button  plain>Подобрать рецепт</el-button>
+      <el-button  plain @click="fetchFilteredRecipes">Подобрать рецепт</el-button>
     </div>
   </div>
 </template>

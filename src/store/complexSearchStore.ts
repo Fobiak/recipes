@@ -5,9 +5,9 @@ import {fetchRecipesSearch} from "@/services/api/rest/api"
 export const useComplexSearchStore = defineStore("complexSearchStore", () => {
     const recipes = ref([]);
 
-    async function loadRecipes() {
+    async function loadRecipes(cuisineType = []) {
         try {
-            const response = await fetchRecipesSearch();
+            const response = await fetchRecipesSearch(cuisineType.join(","));
             recipes.value = response.data.results;
             console.log(response.data.results);
         } catch (error) {
