@@ -4,18 +4,26 @@ import {getCalories} from "@/utils/getCalories";
 import {convertMinute} from "@/utils/convertMinute";
 import Card from "@/components/card/Card.vue";
 import {useComplexSearchStore} from "@/store/complexSearchStore";
-import {onMounted} from "vue";
+import {onMounted, ref, watch} from "vue";
 
 const complexSearchStore = useComplexSearchStore();
+const isLoading = ref(true);
 
-onMounted(() => {
-  complexSearchStore.loadRecipes();
+onMounted(async () => {
+  isLoading.value = true;
+  await complexSearchStore.loadRecipes();
+  isLoading.value = false;
 });
+
+watch(() => complexSearchStore.recipes, () => {
+  isLoading.value = false;
+});
+
 </script>
 
 <template>
   <selector-bar/>
-  <main class="px-24 py-8">
+  <main class="px-24 py-8" v-loading="isLoading">
     <div class="grid gap-10" style="grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));">
       <Card v-for="recipe in complexSearchStore.recipes" :key="recipe.id"
             :title="recipe.title"

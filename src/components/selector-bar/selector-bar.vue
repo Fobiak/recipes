@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {computed, onMounted, ref} from 'vue'
 import {useComplexSearchStore} from "@/store/complexSearchStore.ts";
 import { ArrowUp, ArrowDown } from '@element-plus/icons-vue'
