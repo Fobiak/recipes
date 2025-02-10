@@ -33,8 +33,19 @@ const options2 = ref(diets.value.map(diet => ({
   label: diet
 })))
 
+const meals = ref([
+  "main course", "side dish", "dessert", "appetizer", "salad", "bread",
+  "breakfast", "soup", "beverage", "sauce", "marinade", "fingerfood",
+  "snack", "drink"
+]);
+const mealType = ref([])
+const options3 = ref(meals.value.map(meal => ({
+  value: meal,
+  label: meal
+})))
+
 const fetchFilteredRecipes = () => {
-  complexSearchStore.loadRecipes(cuisineType.value, dietType.value);
+  complexSearchStore.loadRecipes(cuisineType.value, dietType.value, mealType.value);
 };
 </script>
 
@@ -55,6 +66,14 @@ const fetchFilteredRecipes = () => {
           v-model="dietType"
           :options="options2"
           placeholder="Диета"
+          style="width: 240px; margin-right: 16px; vertical-align: middle"
+          multiple
+          clearable
+      />
+      <el-select-v2
+          v-model="mealType"
+          :options="options3"
+          placeholder="Тип блюда"
           style="width: 240px; margin-right: 16px; vertical-align: middle"
           multiple
           clearable
