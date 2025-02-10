@@ -46,21 +46,40 @@ const options3 = ref(meals.value.map(meal => ({
 
 const searchQuery = ref('');
 
+const incIngrQuery = ref('')
+const excIngrQuery = ref('')
+
+const selectSortChoice = ref('');
+
+const sortChoice = [
+  { label: 'Популярное', value: 'popularity' },
+  { label: 'По времени', value: 'time' },
+  { label: 'По калориям', value: 'calories' },
+  { label: 'Случайно', value: 'random' },
+];
+
+const setSortChoice = (value) => {
+  selectSortChoice.value = value;
+  console.log(selectSortChoice.value)
+  fetchFilteredRecipes();
+};
+
 const fetchFilteredRecipes = () => {
-  complexSearchStore.loadRecipes(cuisineType.value, dietType.value, mealType.value, searchQuery.value);
+  complexSearchStore.loadRecipes(cuisineType.value,
+      dietType.value, mealType.value,
+      searchQuery.value, incIngrQuery.value, excIngrQuery.value, selectSortChoice.value);
 };
 </script>
 
 
 <template>
-
-  <div class="flex justify-between border-b border-gray-300 px-24 py-3 bg-white">
-    <div class="flex items-center gap-4">
+  <div class="flex justify-between border-b border-gray-300 px-24 py-6 bg-white">
+    <div class="flex items-center gap-2">
       <el-select-v2
           v-model="cuisineType"
           :options="options"
           placeholder="Кухни стран"
-          style="width: 240px; margin-right: 16px; vertical-align: middle"
+          style="width: 200px; margin-right: 16px; vertical-align: middle"
           multiple
           clearable
       />
@@ -68,7 +87,7 @@ const fetchFilteredRecipes = () => {
           v-model="dietType"
           :options="options2"
           placeholder="Диета"
-          style="width: 240px; margin-right: 16px; vertical-align: middle"
+          style="width: 200px; margin-right: 16px; vertical-align: middle"
           multiple
           clearable
       />
@@ -76,25 +95,51 @@ const fetchFilteredRecipes = () => {
           v-model="mealType"
           :options="options3"
           placeholder="Тип блюда"
-          style="width: 240px; margin-right: 16px; vertical-align: middle"
+          style="width: 200px; margin-right: 16px; vertical-align: middle"
           multiple
           clearable
       />
 
-      <div class=" flex-1 flex items-center gap-2 px-10">
+      <div class="flex flex-col">
+        <el-input
+            v-model="incIngrQuery"
+            style="width: 200px;  margin-right: 16px;"
+            placeholder="+ ингредиент"
+            clearable>
+        </el-input>
+        <el-input
+            v-model="excIngrQuery"
+            style="width: 200px;  margin-right: 16px;"
+            placeholder="- ингредиент"
+            clearable
+            class="pt-2">
+        </el-input>
+      </div>
+
+      <div class="flex ">
         <el-input
             v-model="searchQuery"
-            style="width: 300px; height: 45px"
+            style="width: 250px; height: 40px; margin-right: 16px;"
             @keyup.enter="fetchFilteredRecipes"
             placeholder="Поиск по названию"
             clearable
         >
         </el-input>
       </div>
-
+      <div class="flex items-center">
+        <el-button  plain @click="fetchFilteredRecipes" type="success">Подобрать рецепт</el-button>
+      </div>
     </div>
-    <div class="flex items-center">
-      <el-button  plain @click="fetchFilteredRecipes">Подобрать рецепт</el-button>
-    </div>
+  </div>
+  <div class=" px-24 py-2">
+    <el-button
+        v-for="button in sortChoice"
+        :key="button.value"
+        :type="selectSortChoice === button.value ? 'primary' : 'default'"
+        @click="setSortChoice(button.value)"
+        link
+        >
+      {{ button.label }}
+    </el-button>
   </div>
 </template>
