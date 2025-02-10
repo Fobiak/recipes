@@ -1,5 +1,32 @@
 <script setup lang="ts" >
-import { Search, Operation } from '@element-plus/icons-vue'
+import router from "@/router";
+import {computed, onMounted, ref} from "vue";
+import { useRoute } from "vue-router"
+import { useRecipeStore } from "@/store/recipeStore";
+import { useDebounceFn } from '@vueuse/core';
+
+const recipeStore = useRecipeStore();
+
+onMounted(() => {
+  recipeStore.loadRecipes();
+});
+
+const searchQueryHead = ref('');
+const headSearch = useDebounceFn(() => {
+  recipeStore.loadRecipes(searchQueryHead.value);
+}, 1000);
+
+const route = useRoute();
+const showSearch = computed(() => route.meta.showSearch);
+
+function goSearch() {
+  router.push({ name: "searchPage" })
+}
+
+function goHome() {
+  router.push({ name: "homepage" })
+}
+
 </script>
 
 <template>
@@ -11,16 +38,18 @@ import { Search, Operation } from '@element-plus/icons-vue'
         <p class="text-xs text-slate-400">Еда — это искусство, а ты художник</p>
       </div>
     </div>
-    <div class=" flex-1 flex items-center gap-2 px-10">
-      <el-input v-model="input" style="width: 300px; height: 45px" placeholder="Поиск по рецептам">
-        <template #suffix>
-          <el-button :icon="Operation" size="default" style="border: none; margin-right: -10px; height: 43px" ></el-button>
-        </template>
+    <div v-if="showSearch" class=" flex-1 flex items-center gap-2 px-10">
+      <el-input v-model="searchQueryHead"
+                @input="headSearch"
+                style="width: 300px; height: 45px"
+                placeholder="Поиск по рецептам"
+                clearable>
       </el-input>
-      <el-button plain :icon="Search" size="large" circle />
     </div>
     <div class="flex items-center">
-      <el-button plain>Главная</el-button>
+      <el-button @click="goHome" plain>Главная</el-button>
+      <el-button @click="goSearch" plain>Подробный поиск</el-button>
+      <el-button plain>О нас</el-button>
     </div>
   </header>
 </template>
