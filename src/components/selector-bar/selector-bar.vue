@@ -64,8 +64,12 @@ const sortChoice = [
 ];
 
 const setSortChoice = (value) => {
-  selectSortChoice.value = value;
-  console.log(selectSortChoice.value)
+  if (selectSortChoice.value === value) {
+    selectSortChoice.value = '';
+  } else {
+    selectSortChoice.value = value;
+  }
+  console.log(selectSortChoice.value);
   fetchFilteredRecipes();
 };
 
