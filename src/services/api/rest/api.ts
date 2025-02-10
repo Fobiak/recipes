@@ -20,6 +20,23 @@ export const fetchRecipes = async () => {
     }
 };
 
-//детальная инфо о рецептах
+//для подробного поиска
+export const fetchRecipesSearch = async (cuisineType) => {
+    try {
+        return await makeRequest({
+            url: `${BASE_URL}/recipes/complexSearch`,
+            method: "get",
+            params: {
+                apiKey: apiKey,
+                number: 15,
+                addRecipeInformation: true,
+                cuisine: cuisineType,
+            },
+        });
+    } catch (error) {
+        console.error("Ошибка при запросе рецептов:", error);
+        return null;
+    }
+};
 
 

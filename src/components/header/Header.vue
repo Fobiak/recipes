@@ -1,5 +1,14 @@
 <script setup lang="ts" >
-import { Search, Operation } from '@element-plus/icons-vue'
+import { Search } from '@element-plus/icons-vue'
+import router from "@/router";
+
+function goSearch() {
+  router.push({ name: "searchPage" })
+}
+
+function goHome() {
+  router.push({ name: "homepage" })
+}
 </script>
 
 <template>
@@ -12,15 +21,13 @@ import { Search, Operation } from '@element-plus/icons-vue'
       </div>
     </div>
     <div class=" flex-1 flex items-center gap-2 px-10">
-      <el-input v-model="input" style="width: 300px; height: 45px" placeholder="Поиск по рецептам">
-        <template #suffix>
-          <el-button :icon="Operation" size="default" style="border: none; margin-right: -10px; height: 43px" ></el-button>
-        </template>
-      </el-input>
+      <el-input v-model="input" style="width: 300px; height: 45px" placeholder="Поиск по рецептам"></el-input>
       <el-button plain :icon="Search" size="large" circle />
     </div>
     <div class="flex items-center">
-      <el-button plain>Главная</el-button>
+      <el-button @click="goHome" plain>Главная</el-button>
+      <el-button @click="goSearch" plain>Подробный поиск</el-button>
+      <el-button plain>О нас</el-button>
     </div>
   </header>
 </template>
