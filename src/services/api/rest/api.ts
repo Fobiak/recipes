@@ -3,7 +3,7 @@ import makeRequest from "@/services/api/httpClient";
 const apiKey = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://api.spoonacular.com";
 
-export const fetchRecipes = async ( searchQueryHead ) => {
+export const fetchRecipes = async ( searchQueryHead = '', page = 1 ) => {
     try {
         return await makeRequest({
             url: `${BASE_URL}/recipes/complexSearch`,
@@ -11,8 +11,9 @@ export const fetchRecipes = async ( searchQueryHead ) => {
             params: {
                 apiKey: apiKey,
                 query: searchQueryHead,
-                number: 15,
+
                 addRecipeInformation: true,
+                offset: (page - 1) * 8,
             },
         });
     } catch (error) {
@@ -33,7 +34,7 @@ export const fetchRecipesSearch = async (cuisineType, dietType, mealType,
             params: {
                 apiKey: apiKey,
                 query: searchQuery,
-                number: 15,
+                number: 8,
                 addRecipeInformation: true,
                 cuisine: cuisineType,
                 diet: dietType,
