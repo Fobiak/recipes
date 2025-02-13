@@ -6,6 +6,7 @@ import { useRecipeInfoStore } from "@/store/RecipeInfoStore";
 const recipeInfoStore = useRecipeInfoStore();
 const route = useRoute();
 const steps = ref([]);
+const isLoading = ref(true);
 
 const active = ref(0)
 
@@ -18,14 +19,16 @@ const next = () => {
 }
 
 onMounted(async () => {
+  isLoading.value = true;
   const recipeId = Number(route.params.id)
   await recipeInfoStore.loadRecipes(recipeId);
   steps.value = recipeInfoStore.recipes.analyzedInstructions?.[0]?.steps || [];
+  isLoading.value = false;
 });
 </script>
 
 <template>
-  <main class="px-24 py-8" >
+  <main class="px-24 py-8" v-loading="isLoading">
     <div
         v-if="recipeInfoStore.recipes"
         class="flex flex-row justify-between">
@@ -47,5 +50,7 @@ onMounted(async () => {
       </el-steps>
       <el-button style="margin-top: 12px" @click="next">Шаг</el-button>
     </div>
+    <h1 class="text-xl my-2">Ингредиенты</h1>
+    <div v-html="recipeInfoStore.widgetData"></div>
   </main>
 </template>
