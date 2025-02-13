@@ -83,6 +83,16 @@ const setSortChoice = (value) => {
   fetchFilteredRecipes();
 };
 
+const onPageChange = (newPage: number) => {
+  page.value = newPage;
+  fetchFilteredRecipes();
+};
+
+const applyFilters = () => {
+  page.value = 1;
+  fetchFilteredRecipes();
+};
+
 const page = ref(1);
 const fetchFilteredRecipes = () => {
   complexSearchStore.loadRecipes(cuisineType.value,
@@ -141,14 +151,14 @@ const fetchFilteredRecipes = () => {
         <el-input
             v-model="searchQuery"
             style="width: 250px; height: 40px; margin-right: 16px;"
-            @keyup.enter="fetchFilteredRecipes"
+            @keyup.enter="applyFilters"
             placeholder="Поиск по названию"
             clearable
         >
         </el-input>
       </div>
       <div class="flex items-center">
-        <el-button  plain @click="fetchFilteredRecipes" type="success">Подобрать рецепт</el-button>
+        <el-button  plain @click="applyFilters" type="success">Подобрать рецепт</el-button>
       </div>
     </div>
   </div>
@@ -168,7 +178,7 @@ const fetchFilteredRecipes = () => {
         inline-prompt
         :active-icon="ArrowUp"
         :inactive-icon="ArrowDown"
-        @change="fetchFilteredRecipes"
+        @change="applyFilters"
     />
   </div>
   <main class="px-24 py-8" v-loading="isLoading">
@@ -179,7 +189,7 @@ const fetchFilteredRecipes = () => {
         :page-size="8"
         :total="complexSearchStore.totalPage"
         layout="prev, pager, next"
-        @current-change="fetchFilteredRecipes" />
+        @current-change="onPageChange" />
     <div class="grid gap-16" style="grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));">
       <Card v-for="recipe in complexSearchStore.recipes" :key="recipe.id"
             :title="recipe.title"

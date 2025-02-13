@@ -13,7 +13,7 @@ onMounted(() => {
 
 const searchQueryHead = ref('');
 const headSearch = useDebounceFn(() => {
-  recipeStore.loadRecipes(searchQueryHead.value);
+  recipeStore.loadRecipes(1, searchQueryHead.value);
 }, 1000);
 
 const route = useRoute();

@@ -15,7 +15,7 @@ export const useComplexSearchStore = defineStore("complexSearchStore", () => {
                 dietType.join(","), mealType.join(","), searchQuery, incIngrQuery,
                 excIngrQuery, selectSortChoice, sortDirectionK, page);
             recipes.value = response.data.results;
-            totalPage.value = response.data.totalResults;
+            totalPage.value = Math.ceil(response.data.totalResults / 8);
             currentPage.value = page;
         } catch (error) {
             console.error("Ошибка загрузки рецептов:", error);
