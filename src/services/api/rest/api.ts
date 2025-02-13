@@ -11,7 +11,6 @@ export const fetchRecipes = async ( searchQueryHead = '', page = 1 ) => {
             params: {
                 apiKey: apiKey,
                 query: searchQueryHead,
-
                 addRecipeInformation: true,
                 offset: (page - 1) * 8,
             },
@@ -25,9 +24,9 @@ export const fetchRecipes = async ( searchQueryHead = '', page = 1 ) => {
 //для подробного поиска
 export const fetchRecipesSearch = async (cuisineType, dietType, mealType,
                                          searchQuery, incIngrQuery, excIngrQuery,
-                                         selectSortChoice, sortDirectionK) => {
+                                         selectSortChoice, sortDirectionK, page= 1) => {
+
     try {
-        console.log(makeRequest)
         return await makeRequest({
             url: `${BASE_URL}/recipes/complexSearch`,
             method: "get",
@@ -43,6 +42,7 @@ export const fetchRecipesSearch = async (cuisineType, dietType, mealType,
                 excludeIngredients: excIngrQuery,
                 sort: selectSortChoice,
                 sortDirection: sortDirectionK,
+                offset: (page - 1) * 8,
             },
         });
     } catch (error) {
