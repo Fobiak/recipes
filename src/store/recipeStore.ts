@@ -6,7 +6,7 @@ import {fetchRecipes} from "@/services/api/rest/api"
 export const useRecipeStore = defineStore("recipeStore", () => {
     const recipes = ref([]);
 
-    async function loadRecipes(page = 1, searchQueryHead = '' ) {
+    async function loadRecipes(searchQueryHead = '', page = 1 ) {
         try {
             const response = await fetchRecipes( searchQueryHead, page );
             if (page == 1) {

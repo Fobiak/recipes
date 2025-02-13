@@ -189,6 +189,8 @@ const fetchFilteredRecipes = () => {
             :servings="recipe.servings"
             :aggregateLikes="recipe.aggregateLikes"
             :dish-types="recipe.dishTypes"
+            @click="$router.push(`/detail/${recipe.id}`)"
+            class="cursor-pointer"
       />
     </div>
   </main>
