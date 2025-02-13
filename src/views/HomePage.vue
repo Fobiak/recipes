@@ -34,7 +34,9 @@ watch(() => recipeStore.recipes, () => {
 <template>
   <main class="px-24 py-8" v-loading="isLoading">
     <div class="grid gap-10" style="grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));">
-      <Card v-for="recipe in recipeStore.recipes" :key="recipe.id"
+      <Card v-for="recipe in recipeStore.recipes"
+            :key="recipe.id"
+            :id="recipe.id"
             :title="recipe.title"
             :image="recipe.image"
             :calories="getCalories(recipe.summary)"
@@ -42,6 +44,8 @@ watch(() => recipeStore.recipes, () => {
             :servings="recipe.servings"
             :aggregateLikes="recipe.aggregateLikes"
             :dish-types="recipe.dishTypes"
+            @click="$router.push(`/detail/${recipe.id}`)"
+            class="cursor-pointer"
       />
     <div
          v-infinite-scroll="loadMoreRecipes"

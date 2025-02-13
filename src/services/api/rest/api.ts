@@ -51,4 +51,19 @@ export const fetchRecipesSearch = async (cuisineType, dietType, mealType,
     }
 };
 
-
+//detail
+export const fetchRecipesInfo = async ( recipeId: number ) => {
+    console.log("Recipe ID:", recipeId);
+    try {
+        return await makeRequest({
+            url: `${BASE_URL}/recipes/${recipeId}/information`,
+            method: "get",
+            params: {
+                apiKey: apiKey,
+            },
+        });
+    } catch (error) {
+        console.error("Ошибка при запросе рецептов:", error);
+        return null;
+    }
+};
