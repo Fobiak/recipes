@@ -4,15 +4,15 @@ import { fetchRecipesInfo } from "@/services/api/rest/api"
 
 
 export const useRecipeInfoStore = defineStore("recipeInfoStore", () => {
-    const recipe = ref([]);
+    const recipes = ref([]);
 
-    async function loadRecipes(recipeId) {
+    async function loadRecipes(recipeId: number) {
         try {
             const response = await fetchRecipesInfo(recipeId);
-            recipe.value = response.data;
+            recipes.value = response.data;
         } catch (error) {
             console.error("Ошибка загрузки рецептов:", error);
         }
     }
-    return { recipe, loadRecipes };
+    return { recipes, loadRecipes };
 });
