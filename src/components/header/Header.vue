@@ -37,7 +37,8 @@ function goHome() {
 
 <template>
   <header class="flex justify-between border-b border-gray-300 px-24 py-3 bg-white">
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4 cursor-pointer"
+         @click="$router.push(`/`)">
       <img src="@/assets/recipe.svg" alt="recipes" class="w-12">
       <div>
         <h2 class="text-xl font-bold">Все рецепты</h2>

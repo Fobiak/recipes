@@ -182,6 +182,9 @@ const fetchFilteredRecipes = () => {
     />
   </div>
   <main class="px-24 py-8" v-loading="isLoading">
+    <div v-if="complexSearchStore.recipes.length === 0" class="text-center text-gray-500">
+      Нет доступных рецептов
+    </div>
     <el-pagination
         class="flex justify-center mb-4"
         v-if="complexSearchStore.totalPage > 0"
