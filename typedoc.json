@@ -1,0 +1,6 @@
+{
+  "entryPoints": ["./src/utils"],
+  "out": "docs",
+  "tsconfig": "tsconfig.json",
+  "entryPointStrategy": "expand"
+}
