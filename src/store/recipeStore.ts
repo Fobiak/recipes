@@ -5,10 +5,16 @@ import {fetchRecipes} from "@/services/api/rest/api"
 
 export const useRecipeStore = defineStore("recipeStore", () => {
     const recipes = ref([]);
+    const currentSearchQuery = ref('');
 
-    async function loadRecipes( page = 1, searchQueryHead ='') {
+    async function loadRecipes( page = 1, searchQueryHead = '' ) {
         try {
-            const response = await fetchRecipes( searchQueryHead, page );
+            if (searchQueryHead.trim() === '') {
+                currentSearchQuery.value = '';
+            } else if (searchQueryHead !== currentSearchQuery.value) {
+                currentSearchQuery.value = searchQueryHead;
+            }
+            const response = await fetchRecipes( currentSearchQuery.value, page );
             if (page == 1) {
                 recipes.value = response.data.results;
             } else {
@@ -18,5 +24,5 @@ export const useRecipeStore = defineStore("recipeStore", () => {
             console.error("Ошибка загрузки рецептов:", error);
         }
     }
-    return { recipes, loadRecipes };
+    return { recipes, loadRecipes, currentSearchQuery };
 });

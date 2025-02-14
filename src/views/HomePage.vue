@@ -15,7 +15,7 @@ const isLoading = ref(true);
 const loadMoreRecipes = async () => {
   if (loading.value) return;
   loading.value = true;
-  await recipeStore.loadRecipes(page.value);
+  await recipeStore.loadRecipes(page.value, recipeStore.currentSearchQuery);
   page.value++;
   loading.value = false;
 };

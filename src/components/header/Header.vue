@@ -4,6 +4,7 @@ import {computed, onMounted, ref} from "vue";
 import { useRoute } from "vue-router"
 import { useRecipeStore } from "@/store/recipeStore";
 import { useDebounceFn } from '@vueuse/core';
+import {Back} from "@element-plus/icons-vue";
 
 const recipeStore = useRecipeStore();
 
@@ -15,6 +16,11 @@ const searchQueryHead = ref('');
 const headSearch = useDebounceFn(() => {
   recipeStore.loadRecipes(1, searchQueryHead.value);
 }, 1000);
+
+const clearSearch = () => {
+  searchQueryHead.value = '';
+  recipeStore.loadRecipes(1, '');
+};
 
 const route = useRoute();
 const showSearch = computed(() => route.meta.showSearch);
@@ -41,6 +47,7 @@ function goHome() {
     <div v-if="showSearch" class=" flex-1 flex items-center gap-2 px-10">
       <el-input v-model="searchQueryHead"
                 @input="headSearch"
+                @clear="clearSearch"
                 style="width: 300px; height: 45px"
                 placeholder="Поиск по рецептам"
                 clearable>
@@ -49,7 +56,7 @@ function goHome() {
     <div class="flex items-center">
       <el-button @click="goHome" plain>Главная</el-button>
       <el-button @click="goSearch" plain>Подробный поиск</el-button>
-      <el-button plain>О нас</el-button>
+      <el-button plain @click="router.back()" :icon="Back"></el-button>
     </div>
   </header>
 </template>
